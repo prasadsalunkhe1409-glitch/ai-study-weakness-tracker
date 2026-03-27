@@ -20,6 +20,7 @@ app.use('/api/recommendation', require('./routes/recommendationRoutes'));
 app.use('/api/performance', require('./routes/performanceRoutes'));
 app.use('/api/user', require('./routes/userStatsRoutes'));
 
+
 app.get('/', (req, res) => {
     res.send('API is running...');
 });

@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 // MongoDB Connection
-const MONGO_URI = 'mongodb://localhost:27017/ai-study-tracker';
+const MONGO_URI = process.env.MONGO_URI;
 
 // Question Schema (Matching the existing model)
 const questionSchema = new mongoose.Schema({
@@ -60,7 +61,7 @@ async function seed() {
         difficulty: q.difficulty,
         section: 'स्पर्धा परीक्षा तयारी',
         subsection: entry.subsection,
-        testNumber: q.testNumber,
+        testNumber: String(q.testNumber),
         explanation: q.explanation,
         questionHash: Buffer.from(`${q.questionText}-${entry.subsection}-${q.testNumber}`).toString('base64')
       }));

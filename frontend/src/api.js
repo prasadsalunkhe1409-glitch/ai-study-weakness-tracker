@@ -1,23 +1,25 @@
-import axios from 'axios';
+import axios from "axios";
 
-const api = axios.create({
-  baseURL: `http://${window.location.hostname}:5001/api`,
+const API = axios.create({
+  baseURL: "https://ai-study-weakness-tracker-d0k1.onrender.com/api",
 });
 
-api.interceptors.request.use(
+// Attach token automatically
+API.interceptors.request.use(
   (config) => {
-    const userInfo = localStorage.getItem('userInfo');
+    const userInfo = localStorage.getItem("userInfo");
+
     if (userInfo) {
       const parsed = JSON.parse(userInfo);
+
       if (parsed.token) {
         config.headers.Authorization = `Bearer ${parsed.token}`;
       }
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-export default api;
+export default API;
